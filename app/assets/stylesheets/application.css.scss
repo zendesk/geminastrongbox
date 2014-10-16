@@ -1,0 +1,66 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.jumbotron {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+#new_device {
+  .form-group {
+    width: 100%;
+    max-width: 400px;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.bundler-instructions {
+  code {
+    font-size: 60%;
+  }
+
+  .continue {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+#devices {
+  margin: 0 auto;
+  max-width: 600px;
+
+  .name {
+    padding-left: $table-cell-padding + 15px;
+  }
+
+  .last-used {
+    color: #888;
+  }
+
+  .action {
+    padding-right: $table-cell-padding + 15px;
+  }
+
+  .new {
+    td {
+      padding: 0;
+    }
+
+    a {
+      display: block;
+      padding: $table-cell-padding;
+      color: $text-color;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-color: $table-bg-hover;
+    }
+  }
+}

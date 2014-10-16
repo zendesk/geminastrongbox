@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <h1>Gem in a Secure Box</h1>
+  <p>Private Ruby Gem Server</p>
+  <p>
+    <%= link_to omniauth_path('google'), class: "btn btn-primary btn-lg google" do %>
+      <%= icon('google', 'Login with Google') %>
+    <% end %>
+
+    <%= link_to omniauth_path('developer'), class: "btn btn-primary btn-lg developer" do %>
+      <%= icon('warning', 'Login to development') %>
+    <% end %>
+  </p>
+</div>

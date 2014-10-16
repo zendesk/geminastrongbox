@@ -1,0 +1,34 @@
+<div id="devices" class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Gem Access Tokens</h2>
+  </div>
+
+  <div class="panel-body">
+    <p>
+      Each computer that needs access to the gems on this server, must have it's own token registered.
+    </p>
+  </div>
+
+  <table class="table">
+    <% current_user.devices.each do |device| %>
+      <tr>
+        <td class="name"><%= device.name %></td>
+        <td class="last-used">
+          <% if device.used? %>
+            used <%= time_ago_in_words(device.used_at) %> ago
+          <% else %>
+            never used
+          <% end %>
+        </td>
+        <td class="action">
+          <%= link_to 'Delete', device_path(device), :class => 'text-danger pull-right', :data => {:method => 'delete', :confirm => 'Really?'} %>
+        </td>
+      </tr>
+    <% end %>
+    <tr class="new">
+      <td colspan="3">
+        <%= link_to icon('plus', 'Register a new computer'), new_device_path %>
+      </td>
+    </tr>
+  </table>
+</div>

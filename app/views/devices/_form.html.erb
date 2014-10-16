@@ -1,0 +1,10 @@
+<% @new_device.errors.full_messages.each do |msg| %>
+  <p class="text-danger"><%= msg %></p>
+<% end %>
+
+<%= form_for(@new_device, :html => {:class => 'form-inline'}) do |f| %>
+  <div class="form-group">
+    <%= f.text_field :name, :placeholder => 'Enter the name of this computer', :class => 'form-control' %>
+  </div>
+  <button type="submit" class="btn btn-default">Create Token</button>
+<% end %>
