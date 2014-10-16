@@ -4,6 +4,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+body {
+  margin-top: 20px
+}
+
 .jumbotron {
   margin: 0 auto;
   max-width: 800px;
@@ -63,4 +67,14 @@
       background-color: $table-bg-hover;
     }
   }
+}
+
+#users {
+  .is-admin {
+    padding-left: $table-cell-padding + 15px;
+  }
+}
+
+#user {
+  max-width: 600px;
 }

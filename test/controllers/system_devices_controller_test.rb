@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class DevicesControllerTest < ActionController::TestCase
+class SystemDevicesControllerTest < ActionController::TestCase
+  let(:system_user) { User.system_user }
+
   describe 'index' do
     when_not_logged_in do
       it 'denies access' do
@@ -9,18 +11,25 @@ class DevicesControllerTest < ActionController::TestCase
       end
     end
 
-    when_logged_in_as(:non_admin, :admin) do
-      it 'lists all my devices and a link to create a new one' do
+    when_logged_in_as(:non_admin) do
+      it 'forbids access' do
+        get :index
+        assert_response :forbidden
+      end
+    end
+
+    when_logged_in_as(:admin) do
+      it 'lists all system devices and a link to create a new one' do
         get :index
 
         assert_select '#devices table' do
-          assert_select 'tr', current_user.devices.count + 1
+          assert_select 'tr', system_user.devices.count + 1
 
-          current_user.devices.each do |device|
+          system_user.devices.each do |device|
             assert_select 'tr td.name', :text => device.name
           end
 
-          assert_select 'tr td a[href=?]', new_device_path
+          assert_select 'tr td a[href=?]', new_system_device_path
         end
       end
     end
@@ -34,10 +43,17 @@ class DevicesControllerTest < ActionController::TestCase
       end
     end
 
-    when_logged_in_as(:non_admin, :admin) do
+    when_logged_in_as(:non_admin) do
+      it 'forbids access' do
+        get :new
+        assert_response :forbidden
+      end
+    end
+
+    when_logged_in_as(:admin) do
       it 'asks for a the name of the new device' do
         get :new
-        assert_select 'form[action=?]', devices_path do
+        assert_select 'form[action=?]', system_devices_path do
           assert_select "input[type=text][name='device[name]']"
         end
       end
@@ -48,7 +64,7 @@ class DevicesControllerTest < ActionController::TestCase
     let(:params) do
       {
         :device => {
-          :name => 'New Laptop'
+          :name => 'New CI'
         }
       }
     end
@@ -60,21 +76,28 @@ class DevicesControllerTest < ActionController::TestCase
       end
     end
 
-    when_logged_in_as(:non_admin, :admin) do
+    when_logged_in_as(:non_admin) do
+      it 'forbids access' do
+        post :create, params
+        assert_response :forbidden
+      end
+    end
+
+    when_logged_in_as(:admin) do
       before { post :create, params }
 
       describe 'when the device can not be saved' do
         let(:params) do
           {
             :device => {
-              :name => current_user.devices.first.name
+              :name => system_user.devices.first.name
             }
           }
         end
 
         it 'rerenders the form with an error' do
-          assert_select 'form[action=?]', devices_path do
-            assert_select "input[type=text][name='device[name]'][value=?]", current_user.devices.first.name
+          assert_select 'form[action=?]', system_devices_path do
+            assert_select "input[type=text][name='device[name]'][value=?]", system_user.devices.first.name
           end
 
           assert_select 'p.text-danger', :text => 'Name is already registered'
@@ -82,7 +105,7 @@ class DevicesControllerTest < ActionController::TestCase
       end
 
       describe 'when the device is saved' do
-        let(:device) { current_user.devices.find_by :name => 'New Laptop' }
+        let(:device) { system_user.devices.find_by :name => 'New CI' }
 
         it 'render instructions for using the device' do
           assert_select 'code', :text => /bundle config http:\/\/test.host\/gems\/ #{device.identifier}:[\S]+/
@@ -99,8 +122,15 @@ class DevicesControllerTest < ActionController::TestCase
       end
     end
 
-    when_logged_in_as(:non_admin, :admin) do
-      let(:device) { current_user.devices.last }
+    when_logged_in_as(:non_admin) do
+      it 'forbids access' do
+        delete :destroy, :id => 1
+        assert_response :forbidden
+      end
+    end
+
+    when_logged_in_as(:admin) do
+      let(:device) { system_user.devices.last }
 
       it 'destroys the device' do
         delete :destroy, :id => device.id

@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  external_id: MyString
-  name: MyString
-  email: MyString
+system:
+  external_id: system
+  name: System User
+  email: system@example.com
+  is_admin: false
 
-two:
-  external_id: MyString
-  name: MyString
-  email: MyString
+admin:
+  external_id: fixture-admin
+  name: Admin User
+  email: admin@example.com
+  is_admin: true
+
+non_admin:
+  external_id: fixture-non_admin
+  name: Non-Admin User
+  email: non-admin@example.com
+  is_admin: false

@@ -7,6 +7,8 @@ class CreateDevices < ActiveRecord::Migration
       t.string :password_digest
       t.datetime :used_at
       t.timestamps
+
+      t.index :identifier, :unique => true
     end
   end
 end

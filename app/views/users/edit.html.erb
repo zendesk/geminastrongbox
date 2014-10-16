@@ -1,0 +1,23 @@
+<div id="user" class="well well-lg center-block">
+  <h1><%= @user.name %></h1>
+
+  <%= form_for @user do |f| %>
+    <div class="form-group">
+      <label>Name</label>
+      <p class="form-control-static"><%= @user.name %></p>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <p class="form-control-static"><%= @user.email %></p>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :is_admin %> Is Admin?
+      </label>
+    </div>
+
+    <%= f.submit 'Update', :class =>'btn btn-primary' %>
+  <% end %>
+</div>

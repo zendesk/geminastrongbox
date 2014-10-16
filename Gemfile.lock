@@ -63,6 +63,9 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.4.2)
     minitest (5.4.2)
+    minitest-spec-rails (5.1.0)
+      minitest (~> 5.0)
+      rails (~> 4.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -149,6 +152,7 @@ DEPENDENCIES
   font-awesome-sass
   geminabox
   jquery-rails
+  minitest-spec-rails
   omniauth (~> 1.1)
   omniauth-github (~> 1.1)
   omniauth-google-oauth2 (~> 0.2)

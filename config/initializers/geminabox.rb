@@ -1,16 +1,16 @@
 require "geminabox"
 
-Geminabox.data = ENV['DATAPATH'] || 'data'
+Geminabox.data = ENV['DATAPATH'] || Rails.root + (Rails.env.test? ? 'test/data' : 'data')
 Geminabox.views = Rails.root + 'app/views/gems'
 # Geminabox.rubygems_proxy = true
 
 auth = -> {
-  auth = Rack::Auth::Basic::Request.new(request.env)
-
   if request.session[:user_id]
     current_user = User.find(request.session[:user_id])
-    Rails.logger.info("Gem access granted to logged in user #{current_user.email}")
+    Rails.logger.info("Gem access granted to #{current_user.email}")
   else
+    auth = Rack::Auth::Basic::Request.new(request.env)
+
     if auth.provided? && auth.basic? && auth.credentials
       identifier, password = auth.credentials
       device = Device.find_by_identifier(identifier).try(:authenticate, password)
@@ -18,7 +18,7 @@ auth = -> {
 
     if device && device.user
       device.used!
-      Rails.logger.info("Gem access granted to user #{device.user.email} on device #{device.id}")
+      Rails.logger.info("Gem access granted to #{device.user.email} on #{device.name}")
       current_user = device.user
     end
   end
@@ -38,6 +38,10 @@ Geminabox::Server.helpers do
 
   def protect_against_forgery?
     false
+  end
+
+  def flash
+    {}
   end
 
   def current_user

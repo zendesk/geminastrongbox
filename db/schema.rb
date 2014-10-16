@@ -23,12 +23,17 @@ ActiveRecord::Schema.define(version: 20141014230532) do
     t.datetime "updated_at"
   end
 
+  add_index "devices", ["identifier"], name: "index_devices_on_identifier", unique: true
+
   create_table "users", force: true do |t|
     t.string   "external_id"
     t.string   "name"
     t.string   "email"
+    t.boolean  "is_admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["external_id"], name: "index_users_on_external_id", unique: true
 
 end

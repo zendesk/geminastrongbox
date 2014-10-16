@@ -2,7 +2,7 @@ class Device < ActiveRecord::Base
   validates_presence_of :name, :user_id, :identifier, :password_digest
   validates_uniqueness_of :name, :scope => :user_id, :message => 'is already registered'
 
-  belongs_to :user
+  belongs_to :user, :touch => true
   has_secure_password :validations => false
 
   before_validation :generate_identifier, :on => :create

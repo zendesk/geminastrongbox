@@ -1,0 +1,29 @@
+<h1>Users <small>ordered by last activity</small></h1>
+<table id="users" class="table table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Admin</th>
+    <th>Last Activity</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="name"><%= user.name %></td>
+        <td class="email"><%= user.email %></td>
+        <td class="is-admin">
+          <% if !user.system_user? %>
+            <% if user.is_admin? %>
+              <%= link_to icon('check-square-o'), make_non_admin_user_path(user), :data => {:method => :patch} %>
+            <% else %>
+              <%= link_to icon('square-o'), make_admin_user_path(user), :data => {:method => :patch} %>
+            <% end %>
+          <% end %>
+        </td>
+        <td class="last-activity"><%= user.updated_at %></td>
+        <td class="action"><%= link_to 'delete', user_path(user), :data => {:method => :delete} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

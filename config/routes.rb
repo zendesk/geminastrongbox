@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  resources :users, :only => [:index, :destroy] do
+    member do
+      patch :make_admin
+      patch :make_non_admin
+    end
+  end
   resources :devices, :only => [:index, :new, :create, :destroy]
+  resources :system_devices, :only => [:index, :new, :create, :destroy]
 
   root 'home#show'
   get '/login', to: 'sessions#new'
@@ -7,5 +14,5 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   post '/auth/:provider/callback', to: 'sessions#create'
 
-  mount Geminabox::Server, :at => '/gems'
+  mount Geminabox::Server, :at => '/gems', :as => 'geminabox'
 end

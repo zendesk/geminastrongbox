@@ -1,6 +1,9 @@
 class DevicesController < ApplicationController
   def index
-    initial if current_user.devices.empty?
+    if current_user.devices.empty?
+      @new_device = current_user.devices.new
+      render :initial
+    end
   end
 
   def new
@@ -11,7 +14,6 @@ class DevicesController < ApplicationController
     @new_device = current_user.devices.build(params.require(:device).permit(:name))
 
     if !@new_device.save
-      flash[:error] = 'You need to enter a name'
       render :new
     end
   end
@@ -19,12 +21,5 @@ class DevicesController < ApplicationController
   def destroy
     current_user.devices.find(params[:id]).destroy
     redirect_to devices_path
-  end
-
-  protected
-
-  def initial
-    @new_device = current_user.devices.new
-    render :initial
   end
 end

@@ -2,13 +2,13 @@
   <h1>Almost done!</h1>
   <p>
     You need to configure bundler to use these new credentials to access this gem server.
-    These settings are stored in ~/.bundler/config. You can add the credentials by running the command below.
+    These settings are stored in ~/.bundler/config. You can add the credentials to by running the command below.
     <strong>We are never going to show this secret key to you again.</strong>
   </p>
   <p class="text-center">
     <code>bundle config <%= geminabox_url %>/ <%= @new_device.identifier %>:<%= @new_device.password %></code>
   </p>
   <p class="continue">
-    <%= link_to 'Done!', devices_path, :class => 'btn btn-primary btn-lg' %>
+    <%= link_to 'Done!', system_devices_path, :class => 'btn btn-primary btn-lg' %>
   </p>
 </div>

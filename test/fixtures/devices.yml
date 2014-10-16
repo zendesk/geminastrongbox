@@ -1,11 +1,29 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+not_admin_laptop:
+  user: non_admin
+  name: Work Laptop
+  identifier: <%= SecureRandom.urlsafe_base64 %>
+  password_digest: <%= BCrypt::Password.create('123456', :cost => BCrypt::Engine.cost) %>
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+not_admin_home:
+  user: non_admin
+  name: Home Desktop
+  identifier: <%= SecureRandom.urlsafe_base64 %>
+  password_digest: <%= BCrypt::Password.create('123456', :cost => BCrypt::Engine.cost) %>
+
+admin_laptop:
+  user: admin
+  name: Work Laptop
+  identifier: <%= SecureRandom.urlsafe_base64 %>
+  password_digest: <%= BCrypt::Password.create('123456', :cost => BCrypt::Engine.cost) %>
+
+admin_home:
+  user: admin
+  name: Home Desktop
+  identifier: <%= SecureRandom.urlsafe_base64 %>
+  password_digest: <%= BCrypt::Password.create('123456', :cost => BCrypt::Engine.cost) %>
+
+travis:
+  user: system
+  name: Travis CI
+  identifier: <%= SecureRandom.urlsafe_base64 %>
+  password_digest: <%= BCrypt::Password.create('123456', :cost => BCrypt::Engine.cost) %>
