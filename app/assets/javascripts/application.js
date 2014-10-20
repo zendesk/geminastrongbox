@@ -17,6 +17,6 @@
 
 $(document).on('click', 'code', function() {
   if (window.getSelection().type !== 'Range') {
-    window.getSelection().setBaseAndExtent(this, 0, this, 1)
+    window.getSelection().setBaseAndExtent(this, 0, this, 1);
   }
-})
+});
