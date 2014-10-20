@@ -1,6 +1,6 @@
 require "geminabox"
 
-Geminabox.data = ENV['DATAPATH'] || Rails.root + (Rails.env.test? ? 'test/data' : 'data')
+Geminabox.data = ENV['DATA_PATH'] || Rails.root + (Rails.env.test? ? 'test/data' : 'data')
 Geminabox.views = Rails.root + 'app/views/gems'
 # Geminabox.rubygems_proxy = true
 
