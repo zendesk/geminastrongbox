@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, :email
 
+  before_destroy :dont_destroy_last_admin
+  validate :dont_lose_last_admin, :on => :update
+
   def system_user?
     email == SYSTEM_USER_EMAIL
   end
@@ -45,5 +48,20 @@ class User < ActiveRecord::Base
 
   def self.safe_to_remove_admin?
     User.admin.count > 1
+  end
+
+  protected
+
+  def dont_destroy_last_admin
+    if is_admin? && !self.class.safe_to_remove_admin?
+      errors.add(:base, :cant_remove_last_admin)
+      false
+    end
+  end
+
+  def dont_lose_last_admin
+    if is_admin_changed? && !is_admin? && !self.class.safe_to_remove_admin?
+      errors.add(:base, :cant_remove_last_admin)
+    end
   end
 end

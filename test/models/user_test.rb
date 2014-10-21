@@ -63,4 +63,37 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'the last admin' do
+    subject { users(:admin) }
+
+    before { User.admin.count.must_equal 1 }
+
+    it 'can not be destroyed' do
+      subject.destroy.must_equal false
+    end
+
+    it 'can not be changes to an non-admin' do
+      subject.is_admin = false
+      subject.wont_be :valid?
+    end
+  end
+
+  describe 'the non-last admin' do
+    subject { users(:admin) }
+
+    before do
+      User.create!(:name => 'Other Admin', :email => 'other_admin@example.com', :is_admin => true)
+      User.admin.count.must_be :>, 1
+    end
+
+    it 'can be destroyed' do
+      subject.destroy.wont_equal false
+    end
+
+    it 'can not be changes to an non-admin' do
+      subject.is_admin = false
+      subject.must_be :valid?
+    end
+  end
 end

@@ -10,35 +10,27 @@ class UsersController < ApplicationController
   end
 
   def make_non_admin
-    if_safe_to_remove_admin do
-      change_is_admin(false)
-    end
+    change_is_admin(false)
   end
 
   def destroy
-    if_safe_to_remove_admin do
-      user.destroy
-      redirect_to users_path
+    if !user.destroy
+      flash[:error] = user.errors.full_messages.join('. ')
     end
+
+    redirect_to users_path
   end
 
   protected
 
   def user
-    @user = User.not_system_user.find(params[:id])
+    @user ||= User.not_system_user.find(params[:id])
   end
 
   def change_is_admin(is_admin)
-    user.update_attributes!(:is_admin => is_admin)
-    redirect_to users_path
-  end
-
-  def if_safe_to_remove_admin
-    if !User.safe_to_remove_admin?
-      flash[:error] = 'That would leave system without any admins!'
-      redirect_to users_path
-    else
-      yield
+    if !user.update_attributes(:is_admin => is_admin)
+      flash[:error] = user.errors.full_messages.join('. ')
     end
+    redirect_to users_path
   end
 end

@@ -38,7 +38,7 @@ Variable Name          | Description
 `GOOGLE_CLIENT_SECRET` | The client secret obtained from Google.
 `GOOGLE_DOMAIN`        | The domain that should have access to your gems. Only users with an email on this domain will have access to your gems.
 
-## Copyright and license
+## Copyright and License
 
 Copyright 2014 Zendesk
 
