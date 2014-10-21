@@ -16,7 +16,7 @@ auth = -> {
       device = Device.find_by_identifier(identifier).try(:authenticate, password)
     end
 
-    if device && device.user
+    if device.try(:user)
       device.used!
       Rails.logger.info("Gem access granted to #{device.user.email} on #{device.name}")
       current_user = device.user

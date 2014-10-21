@@ -3,6 +3,7 @@ require 'omniauth'
 OmniAuth.config.logger = Rails.logger
 
 require 'omniauth-google-oauth2'
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer if Rails.env.development? || Rails.env.test?
 
