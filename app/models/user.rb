@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
       user.email = SYSTEM_USER_EMAIL
     end
   end
+
+  def self.safe_to_remove_admin?
+    User.admin.count > 1
+  end
 end

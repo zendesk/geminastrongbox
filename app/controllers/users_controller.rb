@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def if_safe_to_remove_admin
-    if User.admin.count <= 1
+    if !User.safe_to_remove_admin?
       flash[:error] = 'That would leave system without any admins!'
       redirect_to users_path
     else
