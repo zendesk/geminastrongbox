@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    logout!("You are not welcome here!") unless allowed_to_login
+    return logout!("You are not welcome here!") unless allowed_to_login
 
     user = User.update_or_create_by_auth(auth_hash)
     session[:user_id] = user.id
@@ -19,13 +19,10 @@ class SessionsController < ApplicationController
   protected
 
   def allowed_to_login
-    return false if auth_hash.nil?
+    return false unless auth_hash
 
-    if restricted_email_domain
-      return auth_hashinfo.email.end_with?(restricted_email_domain)
-    end
-
-    return true
+    restricted_email_domain.blank? ||
+      auth_hash.info.email.end_with?(restricted_email_domain)
   end
 
   def auth_hash
