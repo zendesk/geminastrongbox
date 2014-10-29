@@ -40,6 +40,7 @@ end
 
 group :development do
   gem 'spring'
+  gem 'dotenv-rails'
 end
 
 group :development, :test do
