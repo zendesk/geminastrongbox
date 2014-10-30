@@ -3,7 +3,6 @@ module Helpers::Geminabox
 
   included do
     include Rails.application.routes.url_helpers
-    include ActionView::Helpers
     include ActionView::Helpers::CsrfHelper
   end
 
@@ -18,6 +17,14 @@ module Helpers::Geminabox
   def current_user
     return nil if session[:user_id].blank?
     @current_user = User.find(session[:user_id])
+  end
+
+  def method_missing(method_sym, *arguments, &block)
+    if ActionController::Base.helpers.respond_to?(method_sym)
+      ActionController::Base.helpers.send(method_sym, *arguments, &block)
+    else
+      super
+    end
   end
 
   def partial_collection(template, collection)
