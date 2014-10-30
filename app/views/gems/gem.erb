@@ -10,7 +10,7 @@
   </div>
 
   <div class="panel-group" id="versions">
-    <% versions.each do |version| %>
+    <% versions.to_a.reverse_each do |version| %>
       <% spec = spec_for(version.name, version.number) %>
       <div class="panel panel-default">
         <div class="panel-heading">
