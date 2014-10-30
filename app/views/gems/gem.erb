@@ -7,7 +7,7 @@
       <span class="label label-primary pull-right"><%= versions.newest.number %></span>
     </h1>
     <p class="lead"><%= latest_spec.description %></p>
-  </div
+  </div>
 
   <div class="panel-group" id="versions">
     <% versions.each do |version| %>
@@ -27,17 +27,13 @@
               <div class="col-md-6">
                 <h4>Runtime Dependencies</h4>
                 <ul class="list-unstyled">
-                  <% spec.development_dependencies.each do |dependency| %>
-                    <li><strong><%= dependency.name %></strong> <%= dependency.requirement %></li>
-                  <% end %>
+                  <%= partial_collection(:gem_dependency, spec.runtime_dependencies) %>
                 </ul>
               </div>
               <div class="col-md-6">
                 <h4>Development Dependencies</h4>
                 <ul class="list-unstyled">
-                  <% spec.development_dependencies.each do |dependency| %>
-                    <li><strong><%= dependency.name %></strong> <%= dependency.requirement %></li>
-                  <% end %>
+                  <%= partial_collection(:gem_dependency, spec.development_dependencies) %>
                 </ul>
               </div>
             </div>

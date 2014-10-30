@@ -32,28 +32,4 @@ auth = -> {
 Geminabox::Server.before(&auth)
 Geminabox::Hostess.before(&auth)
 Geminabox::Proxy::Hostess.before(&auth)
-
-Geminabox::Server.helpers do
-  include ActionView::Helpers::CsrfHelper
-
-  def protect_against_forgery?
-    false
-  end
-
-  def flash
-    {}
-  end
-
-  def current_user
-    return nil if session[:user_id].blank?
-    @current_user = User.find(session[:user_id])
-  end
-
-  def method_missing(method_sym, *arguments, &block)
-    if ActionController::Base.helpers.respond_to?(method_sym)
-      ActionController::Base.helpers.send(method_sym, *arguments, &block)
-    else
-      super
-    end
-  end
-end
+Geminabox::Server.helpers Helpers::Geminabox
