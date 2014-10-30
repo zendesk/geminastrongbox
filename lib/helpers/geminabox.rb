@@ -21,6 +21,8 @@ module Helpers::Geminabox
   def method_missing(method_sym, *arguments, &block)
     if ActionController::Base.helpers.respond_to?(method_sym)
       ActionController::Base.helpers.send(method_sym, *arguments, &block)
+    elsif Rails.application.routes.url_helpers.respond_to?(method_sym)
+      Rails.application.routes.url_helpers.send(method_sym, *arguments, &block)
     else
       super
     end
@@ -38,7 +40,7 @@ module Helpers::Geminabox
 
   def link_to_gem(name)
     link = if find_gem_by_name(name)
-      "/gems/gems/#{name}"
+      "#{geminabox_path}/gems/#{name}"
     else
       "https://rubygems.org/gems/#{name}"
     end
