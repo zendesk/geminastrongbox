@@ -56,4 +56,10 @@ Geminabox::Server.helpers do
       super
     end
   end
+
+  def partial_collection(template, collection)
+    collection.map do |object|
+      erb("_#{template}".to_sym, :layout => false, :locals => { template => object })
+    end.join
+  end
 end
