@@ -67,6 +67,16 @@ Geminabox::Server.helpers do
     gem_cache[name]
   end
 
+  def link_to_gem(name)
+    link = if find_gem_by_name(name)
+      "/gems/gems/#{name}"
+    else
+      "https://rubygems.org/gems/#{name}"
+    end
+
+    %Q{<a href="#{link}">#{name}</a>}
+  end
+
   private
 
   def gem_cache

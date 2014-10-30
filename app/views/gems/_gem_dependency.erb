@@ -1,9 +1,4 @@
 <li>
-  <% if find_gem_by_name(gem_dependency.name) %>
-    <a href="/gems/gems/<%= gem_dependency.name %>"><%= gem_dependency.name %></a>
-  <% else %>
-    <strong><%= gem_dependency.name %></strong>
-  <% end %>
-
+  <%= link_to_gem(gem_dependency.name) %>
   <%= gem_dependency.requirement %>
 </li>
