@@ -29,8 +29,8 @@ class Helpers::GeminaboxTest < ActiveSupport::TestCase
   describe 'reverse dependencies' do
     def spec_for(name, number)
       dependencies = if specs.key?(name)
-        specs[name][number.to_s].map do |gem, version|
-          Gem::Dependency.new(gem, version)
+        specs[name][number.to_s].map do |gem, requirement|
+          Gem::Dependency.new(gem, requirement)
         end
       else
         []
@@ -55,10 +55,10 @@ class Helpers::GeminaboxTest < ActiveSupport::TestCase
 
     let(:load_gems) {
       Geminabox::GemVersionCollection.new([
-        ['private_gem', Gem::Version.new('0.0.1'), 'ruby'],
-        ['private_gem', Gem::Version.new('0.0.2'), 'ruby'],
-        ['test_gem', Gem::Version.new('0.0.1'), 'ruby'],
-        ['specific_gem', Gem::Version.new('0.0.1'), 'ruby']
+        gem('private_gem', '0.0.1'),
+        gem('private_gem', '0.0.2'),
+        gem('test_gem', '0.0.1'),
+        gem('specific_gem', '0.0.1')
       ])
     }
 
