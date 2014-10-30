@@ -12,16 +12,19 @@
   <div class="panel-group" id="versions">
     <% versions.to_a.reverse_each do |version| %>
       <% spec = spec_for(version.name, version.number) %>
+      <% number_class = version.number.to_s.tr('.', '_') %>
+
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#versions" href="#version-<%= version.number %>">
+            <a data-toggle="collapse" data-parent="#versions" href="#version-<%= number_class %>">
               <strong><%= version.name %></strong> <%= version.number %>
               <span class="pull-right"><%= spec.date.to_date %></span>
             </a>
           </h4>
         </div>
-        <div id="version-<%= version.number %>" class="panel-collapse collapse <%= version == versions.newest ? 'in' : '' %>">
+
+        <div id="version-<%= number_class %>" class="panel-collapse collapse <%= version == versions.newest ? 'in' : '' %>">
           <div class="panel-body">
             <div class="row">
               <div class="col-md-6">
