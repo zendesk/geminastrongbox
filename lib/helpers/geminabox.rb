@@ -2,6 +2,7 @@ module Helpers::Geminabox
   extend ActiveSupport::Concern
 
   included do
+    include Rails.application.routes.url_helpers
     include ActionView::Helpers::CsrfHelper
   end
 
@@ -21,8 +22,6 @@ module Helpers::Geminabox
   def method_missing(method_sym, *arguments, &block)
     if ActionController::Base.helpers.respond_to?(method_sym)
       ActionController::Base.helpers.send(method_sym, *arguments, &block)
-    elsif Rails.application.routes.url_helpers.respond_to?(method_sym)
-      Rails.application.routes.url_helpers.send(method_sym, *arguments, &block)
     else
       super
     end
@@ -45,7 +44,7 @@ module Helpers::Geminabox
       "https://rubygems.org/gems/#{name}"
     end
 
-    %Q{<a href="#{link}">#{name}</a>}
+    link_to(name, link)
   end
 
   private
