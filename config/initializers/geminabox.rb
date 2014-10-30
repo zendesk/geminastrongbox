@@ -62,4 +62,14 @@ Geminabox::Server.helpers do
       erb("_#{template}".to_sym, :layout => false, :locals => { template => object })
     end.join
   end
+
+  def find_gem_by_name(name)
+    gem_cache[name]
+  end
+
+  private
+
+  def gem_cache
+    @gem_cache ||= Hash[load_gems.by_name]
+  end
 end
