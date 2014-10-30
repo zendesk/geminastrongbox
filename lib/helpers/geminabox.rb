@@ -47,6 +47,29 @@ module Helpers::Geminabox
     link_to(name, link)
   end
 
+  def reverse_dependencies(version)
+    dependents = []
+
+    load_gems.by_name do |name, versions|
+      next if version.name == name
+
+      latest_spec = spec_for(name, versions.newest.number)
+      dependencies = latest_spec.dependencies
+
+      dependent = dependencies.detect do |d|
+        d.name == version.name && d.requirement.satisfied_by?(version.number)
+      end
+
+      if dependent
+        dependent = dependent.dup
+        dependent.name = name
+        dependents << dependent
+      end
+    end
+
+    dependents
+  end
+
   private
 
   def gem_cache
