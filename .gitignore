@@ -20,3 +20,5 @@
 !/data/.keep
 
 .env
+
+vendor/bundle
