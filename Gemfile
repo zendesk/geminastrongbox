@@ -21,6 +21,7 @@ gem 'omniauth-github', '~> 1.1'
 gem 'omniauth-google-oauth2', '~> 0.2'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
+gem 'unicorn-rails'
 
 group :sqlite do
   gem "sqlite3"
