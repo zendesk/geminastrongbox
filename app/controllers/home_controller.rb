@@ -6,4 +6,7 @@ class HomeController < ApplicationController
       redirect_to(geminabox_path)
     end
   end
+  def status
+    render text: 'ok'
+  end
 end
