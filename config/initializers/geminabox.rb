@@ -4,7 +4,11 @@ Geminabox.data = ENV['DATA_PATH'] || Rails.root + (Rails.env.test? ? 'test/data'
 Geminabox.views = Rails.root + 'app/views/gems'
 # Geminabox.rubygems_proxy = true
 
-auth = -> {
+ssl_and_auth = -> {
+  if !request.ssl? && !Rails.env.test?
+    redirect url.sub('http://', 'https://')
+  end
+
   if request.session[:user_id]
     current_user = User.find(request.session[:user_id])
     Rails.logger.info("Gem access granted to #{current_user.email}")
@@ -29,7 +33,7 @@ auth = -> {
   end
 }
 
-Geminabox::Server.before(&auth)
-Geminabox::Hostess.before(&auth)
-Geminabox::Proxy::Hostess.before(&auth)
+Geminabox::Server.before(&ssl_and_auth)
+Geminabox::Hostess.before(&ssl_and_auth)
+Geminabox::Proxy::Hostess.before(&ssl_and_auth)
 Geminabox::Server.helpers Helpers::Geminabox
