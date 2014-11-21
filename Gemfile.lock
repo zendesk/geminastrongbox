@@ -67,7 +67,7 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
     minitest (5.4.3)
-    minitest-spec-rails (5.1.0)
+    minitest-spec-rails (5.1.1)
       minitest (~> 5.0)
       rails (~> 4.1)
     multi_json (1.10.1)
@@ -173,7 +173,7 @@ DEPENDENCIES
   omniauth-github (~> 1.1)
   omniauth-google-oauth2 (~> 0.2)
   pg
-  rails (= 4.1.8)
+  rails (~> 4.1.8)
   sass-rails (~> 4.0.3)
   spring
   sqlite3
