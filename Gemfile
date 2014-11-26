@@ -22,6 +22,7 @@ gem 'omniauth-google-oauth2', '~> 0.2'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'unicorn-rails'
+gem 'dotenv-rails'
 
 group :sqlite do
   gem "sqlite3"
@@ -41,7 +42,6 @@ end
 
 group :development do
   gem 'spring'
-  gem 'dotenv-rails'
 end
 
 group :development, :test do
