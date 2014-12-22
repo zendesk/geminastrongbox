@@ -13,8 +13,8 @@
         <td><a href="<%= url("/gems/#{name}") %>"><%= name %></a></td>
         <td>
           <% if spec = spec_for(name, versions.newest.number) %>
-            <%= spec.authors.map do |author|
-              "<a href='#{spec.homepage}'>#{author}</a>"
+            <%= spec.authors.zip(Array(spec.email)).map do |author, email|
+              link_to_author(author, email, spec.homepage)
             end.join(', ') %>
           <% end %>
         </td>
