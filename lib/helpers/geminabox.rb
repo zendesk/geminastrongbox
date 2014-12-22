@@ -47,6 +47,11 @@ module Helpers::Geminabox
     link_to(name, link)
   end
 
+  def link_to_author(author, email, default)
+    url = email ? "mailto:#{email}" : default
+    "<a href='#{url}'>#{author}</a>"
+  end
+
   def reverse_dependencies(version)
     dependents = []
 
