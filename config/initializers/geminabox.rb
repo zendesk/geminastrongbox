@@ -33,7 +33,19 @@ ssl_and_auth = -> {
   end
 }
 
-Geminabox::Server.before(&ssl_and_auth)
-Geminabox::Hostess.before(&ssl_and_auth)
-Geminabox::Proxy::Hostess.before(&ssl_and_auth)
-Geminabox::Server.helpers Helpers::Geminabox
+bundler_version = -> {
+  version = request.user_agent.to_s[%r{bundler/v([\d\.]+)}, 1]
+
+  if version && Gem::Version.new(version) < Gem::Version.new('1.6.5')
+    Rails.logger.info("Blocking bundler version #{version}")
+    halt 403
+    body 'You must use a version of bundler > 1.6.4.'
+  end
+}
+
+[Geminabox::Server, Geminabox::Hostess, Geminabox::Proxy::Hostess].each do |klass|
+  klass.before(&ssl_and_auth)
+  klass.before(&bundler_version)
+end
+
+Geminabox::Server.helpers(Helpers::Geminabox)
