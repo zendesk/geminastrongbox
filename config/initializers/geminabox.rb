@@ -5,7 +5,7 @@ Geminabox.views = Rails.root + 'app/views/gems'
 # Geminabox.rubygems_proxy = true
 
 ssl_and_auth = -> {
-  if !request.ssl? && !Rails.env.test?
+  if !request.ssl? && !Rails.env.test? && !ENV['SKIP_FORCE_SSL']
     redirect url.sub('http://', 'https://')
   end
 
