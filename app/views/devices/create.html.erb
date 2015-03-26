@@ -6,7 +6,7 @@
     <strong>We are never going to show this secret key to you again.</strong>
   </p>
   <p class="text-center">
-    <code>bundle config <%= geminabox_url %>/ <%= @new_device.identifier %>:<%= @new_device.password %></code>
+    <code>bundle config --global <%= geminabox_url %>/ <%= @new_device.identifier %>:<%= @new_device.password %></code>
   </p>
   <p class="continue">
     <%= link_to 'Done!', devices_path, :class => 'btn btn-primary btn-lg' %>
