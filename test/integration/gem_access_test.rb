@@ -29,6 +29,13 @@ class GemAccessTest < ActionDispatch::IntegrationTest
         end
       end
 
+      it 'blocks bundler < 1.6.5' do
+        gem_access_paths.each do |path|
+          get path, {}, env.merge('HTTP_USER_AGENT' => 'bundler/v1.0.0')
+          assert_response :forbidden
+        end
+      end
+
       it 'registers that the device was used' do
         current_device.used_at.must_be_nil
         get gem_access_paths.last, {}, env
