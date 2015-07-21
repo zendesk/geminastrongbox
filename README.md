@@ -1,5 +1,7 @@
 # Gem in a Strong Box
 
+![Build status](https://travis-ci.org/zendesk/geminastrongbox.svg)
+
 Gem in a Strong Box is a Ruby on Rails application that wraps [Gem in a Box](https://github.com/geminabox/geminabox).
 
 You get all of the goodness from Gem in a Box with some added features:
