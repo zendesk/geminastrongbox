@@ -85,7 +85,7 @@ class DevicesControllerTest < ActionController::TestCase
         let(:device) { current_user.devices.find_by :name => 'New Laptop' }
 
         it 'render instructions for using the device' do
-          assert_select 'code', :text => /bundle config http:\/\/test.host\/gems\/ #{device.identifier}:[\S]+/
+          assert_select 'code', :text => /bundle config --global http:\/\/test.host\/gems\/ #{device.identifier}:[\S]+/
         end
       end
     end
