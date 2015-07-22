@@ -38,8 +38,7 @@ bundler_version = -> {
 
   if version && Gem::Version.new(version) < Gem::Version.new('1.6.5')
     Rails.logger.info("Blocking bundler version #{version}")
-    halt 403
-    body 'You must use a version of bundler > 1.6.4.'
+    halt 403, 'You must use a version of bundler > 1.6.4.'
   end
 }
 
