@@ -59,7 +59,10 @@ module Helpers::Geminabox
       next if version.name == name
 
       latest_spec = spec_for(name, versions.newest.number)
+      next unless latest_spec
+
       dependencies = latest_spec.dependencies
+      next unless dependencies
 
       dependent = dependencies.detect do |d|
         d.name == version.name && d.requirement.satisfied_by?(version.number)
