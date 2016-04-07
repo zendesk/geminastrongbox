@@ -23,7 +23,7 @@ Getting the basic server running locally is very easy. Simply clone the reposito
 
 ### Running in Production
 
-If you want to run Gem in a Stong Box in prodcution, you probably want to make a few changes. Here are my suggestions:
+If you want to run Gem in a Stong Box in production, you probably want to make a few changes. Here are my suggestions:
 
 1. Use a different database. Per default Gem in a Strong Box uses a SQLite database. This is simply for ease of development and test. In production I would use a MySQL or PostgreSQL server. Just change the configuration in `config/database.yml` and add the appropriate gem to the `Gemfile`.
 2. Set __all__ of the configuration options listed below.
