@@ -18,6 +18,10 @@ ssl_and_auth = -> {
     if auth.provided? && auth.basic? && auth.credentials
       identifier, password = auth.credentials
       device = Device.find_by_identifier(identifier).try(:authenticate, password)
+      unless device
+        decode = Proc.new{ |string| Base64.decode64(CGI.unescape(string)) }
+        device = Device.find_by_token(decode[identifier], decode[password])
+      end
     end
 
     if device.try(:user)

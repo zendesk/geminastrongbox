@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   get '/auth/:provider/callback', to: 'sessions#create'
   post '/auth/:provider/callback', to: 'sessions#create'
+  get '/tokens', to: "tokens#show"
 
   mount Geminabox::Server, :at => '/gems', :as => 'geminabox'
 end
