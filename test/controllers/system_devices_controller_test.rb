@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class SystemDevicesControllerTest < ActionController::TestCase
   let(:system_user) { User.system_user }

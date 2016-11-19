@@ -18,7 +18,11 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#versions" href="#version-<%= number_class %>">
-              <strong><%= version.name %></strong> <%= version.number %>
+              <strong><%= version.name %></strong>
+              <%= version.number %>
+              <% if uploader = Uploader.where(gem_name: spec.name, gem_version: spec.version.to_s).first %>
+                Uploaded by <%= uploader.user.try(:email) %>
+              <% end %>
               <span class="pull-right"><%= spec.date.to_date %></span>
             </a>
           </h4>
