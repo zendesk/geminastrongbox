@@ -21,6 +21,8 @@ rails s
 
 Getting the basic server running locally is very easy. Simply clone the repository, bundle the dependencies, and run the server.
 
+If the environment variable `SKIP_FORCE_SSL` is set the server will not force ssl on the connections.
+
 ### Running in Production
 
 If you want to run Gem in a Stong Box in production, you probably want to make a few changes. Here are my suggestions:
