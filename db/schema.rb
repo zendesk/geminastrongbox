@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014230532) do
+ActiveRecord::Schema.define(version: 20161119231012) do
 
   create_table "devices", force: true do |t|
     t.integer  "user_id"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20141014230532) do
   end
 
   add_index "devices", ["identifier"], name: "index_devices_on_identifier", unique: true
+
+  create_table "uploaders", force: true do |t|
+    t.string   "gem_name",    null: false
+    t.string   "gem_version", null: false
+    t.integer  "user_id",     null: false
+    t.datetime "created_at",  null: false
+  end
+
+  add_index "uploaders", ["gem_name", "gem_version"], name: "index_uploaders_on_gem_name_and_gem_version", unique: true
+  add_index "uploaders", ["user_id"], name: "index_uploaders_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "external_id"

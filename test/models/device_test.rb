@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class DeviceTest < ActiveSupport::TestCase
   subject { Device.create!(:user => users(:admin), :name => 'New Device') }
