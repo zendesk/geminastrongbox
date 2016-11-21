@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
+    bootscale (0.5.2)
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.2.2)
@@ -161,6 +162,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
+  bootscale
   bootstrap-sass
   byebug
   dotenv-rails
@@ -181,4 +183,4 @@ DEPENDENCIES
   unicorn-rails
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
