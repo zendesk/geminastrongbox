@@ -6,7 +6,7 @@ class AddUploader < ActiveRecord::Migration
       t.timestamp :created_at, null: false
     end
 
-    add_index :uploaders, [:gem_name, :gem_version], unique: true
+    add_index :uploaders, [:gem_name, :gem_version], length: {gem_name: 30, gem_version: 20}, unique: true
     add_index :uploaders, :user_id
   end
 end
