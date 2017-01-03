@@ -1,5 +1,9 @@
+<% VERSION_LIMIT = 3 %>
 <% @gem.by_name do |name, versions| %>
   <% latest_spec = spec_for(name, versions.newest.number) %>
+  <% ordered_versions_array = versions.to_a.reverse %>
+  <% recent_versions = ordered_versions_array.first(VERSION_LIMIT) %>
+  <% old_versions = Array(ordered_versions_array[VERSION_LIMIT..-1]) %>
   <div class="page-header">
     <h1>
       <%= name %>
@@ -10,7 +14,7 @@
   </div>
 
   <div class="panel-group" id="versions">
-    <% versions.last(20).reverse_each do |version| %>
+    <% recent_versions.each do |version| %>
       <% spec = spec_for(version.name, version.number) %>
       <% number_class = version.number.to_s.tr('.', '_') %>
 
@@ -30,31 +34,20 @@
 
         <div id="version-<%= number_class %>" class="panel-collapse collapse <%= version == versions.newest ? 'in' : '' %>">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-md-4">
-                <h4>Runtime Dependencies</h4>
-                <ul class="list-unstyled">
-                  <%= partial_collection(:gem_dependency, spec.runtime_dependencies) %>
-                </ul>
-              </div>
-              <div class="col-md-4">
-                <h4>Development Dependencies</h4>
-                <ul class="list-unstyled">
-                  <%= partial_collection(:gem_dependency, spec.development_dependencies) %>
-                </ul>
-              </div>
-              <div class="col-md-4">
-                <h4>Dependents</h4>
-                <ul class="list-unstyled">
-                  <%= partial_collection(:gem_dependency, reverse_dependencies(version)) %>
-                </ul>
-              </div>
-            </div>
-
-            <a href="<%= url("/gems/#{version.gemfile_name}.gem") %>" class="btn btn-danger" data-confirm="Really?" data-method="delete">
-              Delete
-            </a>
+            <%= erb :_version_details, {}, spec: spec, version: version %>
           </div>
+        </div>
+      </div>
+    <% end %>
+    <% old_versions.each do |version| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a href="<%= gem_version_path(gemname: name, version: version.number) %>">
+            <h4 class="panel-title">
+              <strong><%= version.name %></strong>
+              <%= version.number %>
+            </h4>
+          </a>
         </div>
       </div>
     <% end %>
