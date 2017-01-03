@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>
+    <%= @version.name %>
+    <small><%= @spec.summary %></small>
+    <span class="label label-primary pull-right"><%= @version.number %></span>
+  </h1>
+  <p class="lead"><%= @spec.description %></p>
+  <p>
+    <% if uploader = Uploader.find_by(gem_name: @spec.name, gem_version: @spec.version.to_s) %>
+      Uploaded by <%= uploader.user.try(:email) %> at <%= uploader.created_at.to_s(:db) %> UTC
+    <% end %>
+  </p>
+</div>
+
+<%= render 'gems/version_details', version: @version, spec: @spec %>
