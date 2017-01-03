@@ -1,6 +1,6 @@
 class VersionsController < ApplicationController
   helper Helpers::Geminabox
-  helper_method :load_gems
+  helper_method :load_gems, :spec_for
 
   def show
     @version = server_instance.find_gem_by_name(params['gemname']).detect do |v|
@@ -12,7 +12,7 @@ class VersionsController < ApplicationController
       return
     end
 
-    @spec = server_instance.send(:spec_for, @version.name, @version.number)
+    @spec = spec_for(@version.name, @version.number)
   end
 
   private
@@ -27,5 +27,9 @@ class VersionsController < ApplicationController
 
   def load_gems
     server_instance.send(:load_gems)
+  end
+
+  def spec_for(*args)
+    server_instance.send(:spec_for, *args)
   end
 end
