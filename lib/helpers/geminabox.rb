@@ -29,8 +29,14 @@ module Helpers::Geminabox
 
   def partial_collection(template, collection)
     collection.map do |object|
-      erb("_#{template}".to_sym, :layout => false, :locals => { template => object })
-    end.join
+      # both rails and sinatra are using this helper, so we need to check how to
+      # evaluate the template
+      if respond_to? :erb
+        erb :"_#{template}", layout: false, locals: { template => object }
+      else
+        render "gems/#{template}", template => object
+      end
+    end.join.html_safe
   end
 
   def find_gem_by_name(name)

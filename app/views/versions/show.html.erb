@@ -5,34 +5,11 @@
     <span class="label label-primary pull-right"><%= @version.number %></span>
   </h1>
   <p class="lead"><%= @spec.description %></p>
+  <p>
+    <% if uploader = Uploader.find_by(gem_name: @spec.name, gem_version: @spec.version.to_s) %>
+      Uploaded by <%= uploader.user.try(:email) %> at <%= uploader.created_at.to_s(:db) %> UTC
+    <% end %>
+  </p>
 </div>
-<div class="row">
-  <div class="col-md-4">
-    <h4>Runtime Dependencies</h4>
-    <ul class="list-unstyled">
-      <% @spec.runtime_dependencies.each do |d| %>
-        <%= link_to_gem(d.name) %> <%= d.requirement %>
-        <br>
-      <% end %>
-    </ul>
-  </div>
-  <div class="col-md-4">
-    <h4>Development Dependencies</h4>
-    <ul class="list-unstyled">
-      <% @spec.development_dependencies.each do |d| %>
-        <%= link_to_gem(d.name) %> <%= d.requirement %>
-        <br>
-      <% end %>
-    </ul>
-  </div>
-  <div class="col-md-4">
-    <h4>Dependents</h4>
-    <ul class="list-unstyled">
-      <% reverse_dependencies(@version).each do |d| %>
-        <%= link_to_gem(d.name) %> <%= d.requirement %>
-        <br>
-      <% end %>
-    </ul>
-  </div>
-</div>
-<%= link_to 'Delete', "/gems/#{@version.gemfile_name}.gem", class: 'btn btn-danger', data: {confirm: 'Really?'}, method: :delete %>
+
+<%= render 'gems/version_details', version: @version, spec: @spec %>

@@ -1,9 +1,7 @@
-<% VERSION_LIMIT = 3 %>
 <% @gem.by_name do |name, versions| %>
   <% latest_spec = spec_for(name, versions.newest.number) %>
-  <% ordered_versions_array = versions.to_a.reverse %>
-  <% recent_versions = ordered_versions_array.first(VERSION_LIMIT) %>
-  <% old_versions = Array(ordered_versions_array[VERSION_LIMIT..-1]) %>
+  <% versions_array = versions.to_a.reverse %>
+  <% recent_versions = versions_array.slice!(0, RECENT_GEM_VERSIONS_TO_SHOW) %>
   <div class="page-header">
     <h1>
       <%= name %>
@@ -31,7 +29,6 @@
             </a>
           </h4>
         </div>
-
         <div id="version-<%= number_class %>" class="panel-collapse collapse <%= version == versions.newest ? 'in' : '' %>">
           <div class="panel-body">
             <%= erb :_version_details, {}, spec: spec, version: version %>
@@ -39,7 +36,8 @@
         </div>
       </div>
     <% end %>
-    <% old_versions.each do |version| %>
+
+    <% versions_array.each do |version| %>
       <div class="panel panel-default">
         <div class="panel-heading">
           <a href="<%= gem_version_path(gemname: name, version: version.number) %>">

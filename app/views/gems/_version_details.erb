@@ -19,6 +19,4 @@
   </div>
 </div>
 
-<a href="<%= url("/gems/#{version.gemfile_name}.gem") %>" class="btn btn-danger" data-confirm="Really?" data-method="delete">
-  Delete
-</a>
+<%= link_to 'Delete', "#{geminabox_path}/gems/#{version.gemfile_name}.gem", class: 'btn btn-danger', data: {confirm: 'Really?'}, method: :delete %>
