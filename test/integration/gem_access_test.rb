@@ -15,7 +15,7 @@ class GemAccessTest < ActionDispatch::IntegrationTest
     when_not_logged_in do
       it 'is denied' do
         gem_access_paths.each do |path|
-          get path, {}, env
+          get path, params: {}, headers: env
           assert_response :unauthorized
         end
       end
@@ -24,21 +24,21 @@ class GemAccessTest < ActionDispatch::IntegrationTest
     when_logged_in_as(:not_admin_laptop) do
       it 'is allowed' do
         gem_access_paths.each do |path|
-          get path, {}, env
+          get path, params: {}, headers: env
           assert_response :success
         end
       end
 
       it 'blocks bundler < 1.6.5' do
         gem_access_paths.each do |path|
-          get path, {}, env.merge('HTTP_USER_AGENT' => 'bundler/v1.0.0')
+          get path, params: {}, headers: env.merge('HTTP_USER_AGENT' => 'bundler/v1.0.0')
           assert_response :forbidden
         end
       end
 
       it 'registers that the device was used' do
         current_device.used_at.must_be_nil
-        get gem_access_paths.last, {}, env
+        get gem_access_paths.last, params: {}, headers: env
         assert_response :success
         current_device.reload.used_at.wont_be_nil
       end
@@ -66,7 +66,7 @@ class GemAccessTest < ActionDispatch::IntegrationTest
 
         begin
           file = fixture_file_upload('test/data/pru-0.2.0.gem')
-          post '/gems/upload', {file: file}, env
+          post '/gems/upload', params: {file: file}, headers: env
           assert_response :success
           Uploader.last.attributes.except('id', 'created_at').must_equal(
             "gem_name" => "pru",
@@ -84,13 +84,13 @@ class GemAccessTest < ActionDispatch::IntegrationTest
           gem_version: '0.0.1',
           user_id: users(:admin).id
         )
-        get '/gems/gems/mickstaugaard', {}, env
+        get '/gems/gems/mickstaugaard', params: {}, headers: env
         assert_response :success
         response.body.must_include "Uploaded by #{users(:admin).email}"
       end
 
       it 'does not fail with unknown uploader' do
-        get '/gems/gems/mickstaugaard', {}, env
+        get '/gems/gems/mickstaugaard', params: {}, headers: env
         assert_response :success
       end
     end

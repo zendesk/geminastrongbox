@@ -34,21 +34,21 @@ class UsersControllerTest < ActionController::TestCase
   describe 'make_admin' do
     when_not_logged_in do
       it 'denies access' do
-        patch :make_admin, :id => users(:non_admin).id
+        patch :make_admin, params: {:id => users(:non_admin).id}
         assert_access_denied
       end
     end
 
     when_logged_in_as(:non_admin) do
       it 'forbids access' do
-        patch :make_admin, :id => users(:non_admin).id
+        patch :make_admin, params: {:id => users(:non_admin).id}
         assert_response :forbidden
       end
     end
 
     when_logged_in_as(:admin) do
       it 'makes the user an admin' do
-        patch :make_admin, :id => users(:non_admin).id
+        patch :make_admin, params: {:id => users(:non_admin).id}
         users(:non_admin).reload.must_be :is_admin?
       end
     end
@@ -57,14 +57,14 @@ class UsersControllerTest < ActionController::TestCase
   describe 'make_non_admin' do
     when_not_logged_in do
       it 'denies access' do
-        patch :make_non_admin, :id => users(:admin).id
+        patch :make_non_admin, params: {:id => users(:admin).id}
         assert_access_denied
       end
     end
 
     when_logged_in_as(:non_admin) do
       it 'forbids access' do
-        patch :make_non_admin, :id => users(:admin).id
+        patch :make_non_admin, params: {:id => users(:admin).id}
         assert_response :forbidden
       end
     end
@@ -73,7 +73,7 @@ class UsersControllerTest < ActionController::TestCase
       describe 'when this is the last admin' do
         before { User.admin.count.must_equal 1 }
         it 'does not make the user an non-admin' do
-          patch :make_non_admin, :id => users(:admin).id
+          patch :make_non_admin, params: {:id => users(:admin).id}
           users(:admin).reload.must_be :is_admin?
         end
       end
@@ -82,7 +82,7 @@ class UsersControllerTest < ActionController::TestCase
         before { User.create!(:name => 'Other Admin', :email => 'other_admin@example.com', :is_admin => true) }
 
         it 'makes the user an non-admin' do
-          patch :make_non_admin, :id => users(:admin).id
+          patch :make_non_admin, params: {:id => users(:admin).id}
           users(:admin).reload.wont_be :is_admin?
         end
       end
@@ -93,14 +93,14 @@ class UsersControllerTest < ActionController::TestCase
     let(:user) { users(:admin) }
     when_not_logged_in do
       it 'denies access' do
-        delete :destroy, :id => user.id
+        delete :destroy, params: {:id => user.id}
         assert_access_denied
       end
     end
 
     when_logged_in_as(:non_admin) do
       it 'forbids access' do
-        delete :destroy, :id => user.id
+        delete :destroy, params: {:id => user.id}
         assert_response :forbidden
       end
     end
@@ -109,7 +109,7 @@ class UsersControllerTest < ActionController::TestCase
       describe 'when this is the last admin' do
         before { User.admin.count.must_equal 1 }
         it 'does not make the user an non-admin' do
-          delete :destroy, :id => user.id
+          delete :destroy, params: {:id => user.id}
           User.where(:id => user.id).wont_be :empty?
         end
       end
@@ -118,7 +118,7 @@ class UsersControllerTest < ActionController::TestCase
         before { User.create!(:name => 'Other Admin', :email => 'other_admin@example.com', :is_admin => true) }
 
         it 'makes the user an non-admin' do
-          delete :destroy, :id => user.id
+          delete :destroy, params: {:id => user.id}
           User.where(:id => user.id).must_be :empty?
         end
       end

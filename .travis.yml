@@ -1,9 +1,6 @@
 sudo: false
-rvm:
-  - 2.1.8
-  - 2.2.4
-  - 2.3.0
 cache: bundler
 bundler_args: --no-deployment
+script: bundle exec rake db:create db:migrate default
 branches:
   only: master

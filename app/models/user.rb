@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   def dont_destroy_last_admin
     if is_admin? && !self.class.safe_to_remove_admin?
       errors.add(:base, :cant_remove_last_admin)
-      false
+      throw :abort
     end
   end
 

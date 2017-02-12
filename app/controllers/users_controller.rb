@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_admin!
+  before_action :require_admin!
 
   def index
     @users = User.not_system_user.order('updated_at DESC')
