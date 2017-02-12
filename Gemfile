@@ -15,7 +15,7 @@ gem 'jquery-rails'
 
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'geminabox'
+gem 'geminabox', '>= 0.13.5'
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-github', '~> 1.1'
 gem 'omniauth-google-oauth2', '~> 0.2'
