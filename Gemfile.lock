@@ -53,6 +53,7 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    brakeman (3.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.4)
@@ -206,6 +207,7 @@ DEPENDENCIES
   airbrake-user_informer
   bcrypt
   bootstrap-sass
+  brakeman
   byebug
   dotenv
   dotenv-rails
