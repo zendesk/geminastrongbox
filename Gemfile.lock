@@ -65,6 +65,8 @@ GEM
     kgio (2.9.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    maxitest (2.4.0)
+      minitest (>= 5.0.0, < 5.11.0)
     mime-types (2.99)
     minitest (5.8.4)
     minitest-spec-rails (5.1.1)
@@ -167,6 +169,7 @@ DEPENDENCIES
   font-awesome-sass
   geminabox (>= 0.13.5)
   jquery-rails
+  maxitest
   minitest-spec-rails
   mysql2
   omniauth (~> 1.1)

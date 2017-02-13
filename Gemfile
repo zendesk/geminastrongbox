@@ -38,6 +38,7 @@ end
 
 group :test do
   gem 'minitest-spec-rails'
+  gem 'maxitest'
 end
 
 group :development do

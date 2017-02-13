@@ -46,6 +46,19 @@ class GemAccessTest < ActionDispatch::IntegrationTest
   end
 
   describe "uploader tracking" do
+    around do |test|
+      Dir.mktmpdir do |dir|
+        begin
+          old_data = Geminabox.data
+          Geminabox.data = dir
+          `cp -r #{old_data} #{dir}`
+          test.call
+        ensure
+          Geminabox.data = old_data
+        end
+      end
+    end
+
     when_logged_in_as(:not_admin_laptop) do
       it 'tracks uploader' do
         uploaded = 'test/data/gems/pru-0.2.0.gem'
