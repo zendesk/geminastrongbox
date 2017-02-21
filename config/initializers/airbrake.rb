@@ -8,7 +8,6 @@ if key = ENV['AIRBRAKE_API_KEY']
     config.project_key = key
 
     config.blacklist_keys = Rails.application.config.filter_parameters + ['HTTP_AUTHORIZATION']
-    config.ignore << "Sinatra::NotFound"
 
     # send correct errors even when something blows up during initialization
     config.environment = Rails.env
@@ -20,5 +19,9 @@ if key = ENV['AIRBRAKE_API_KEY']
     # - set consider_all_requests_local = false in development.rb
     # - uncomment
     # config.ignore_environments = [:test]
+  end
+
+  Airbrake.add_filter do |notice|
+    notice.ignore! if notice[:errors].any? { |error| error[:type] == 'Sinatra::NotFound' }
   end
 end
