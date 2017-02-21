@@ -26,6 +26,9 @@ gem 'font-awesome-sass'
 gem 'unicorn-rails'
 gem 'unicorn', '~> 4.8.3'
 gem 'dotenv-rails'
+gem 'airbrake'
+gem 'airbrake-user_informer'
+gem 'dotenv'
 
 group :sqlite do
   gem "sqlite3"
