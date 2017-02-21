@@ -4,7 +4,9 @@ require 'rails/all'
 
 RECENT_GEM_VERSIONS_TO_SHOW = 20
 
-$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+# Define dotenv before preload, so that gems can use the ENV vars defined within
+require 'dotenv'
+Dotenv.load(Bundler.root.join('.env'))
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

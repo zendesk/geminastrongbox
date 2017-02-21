@@ -41,6 +41,8 @@ Variable Name          | Description
 `GOOGLE_CLIENT_ID`     | The client id obtained from Google.
 `GOOGLE_CLIENT_SECRET` | The client secret obtained from Google.
 `GOOGLE_DOMAIN`        | The domain that should have access to your gems. Only users with an email on this domain will have access to your gems.
+`AIRBRAKE_API_KEY`     | Enable airbrake error reporting. 
+`AIRBRAKE_PROJECT_ID`  | 
 
 ## Copyright and License
 
