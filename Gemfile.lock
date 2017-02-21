@@ -179,8 +179,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
-    unicorn (5.2.0)
+    unicorn (4.9.0)
       kgio (~> 2.6)
+      rack
       raindrops (~> 0.7)
     unicorn-rails (2.2.1)
       rack
@@ -212,6 +213,7 @@ DEPENDENCIES
   spring
   sqlite3
   uglifier
+  unicorn (~> 4.8)
   unicorn-rails
 
 RUBY VERSION
