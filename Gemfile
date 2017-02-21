@@ -29,6 +29,7 @@ gem 'dotenv-rails'
 gem 'airbrake'
 gem 'airbrake-user_informer'
 gem 'dotenv'
+gem 'brakeman'
 
 group :sqlite do
   gem "sqlite3"

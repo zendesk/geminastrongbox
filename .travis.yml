@@ -1,6 +1,10 @@
 sudo: false
 cache: bundler
 bundler_args: --no-deployment
-script: bundle exec rake db:create db:migrate default
 branches:
   only: master
+script: bundle exec rake $TASK
+env:
+  matrix:
+    - TASK='db:create db:migrate default'
+    - TASK=brakeman
