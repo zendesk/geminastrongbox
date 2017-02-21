@@ -24,7 +24,7 @@ gem 'sinatra', '2.0.0.beta2'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'unicorn-rails'
-gem 'unicorn', '~> 4.8'
+gem 'unicorn', '~> 4.8.3'
 gem 'dotenv-rails'
 
 group :sqlite do
