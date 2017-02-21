@@ -4,6 +4,8 @@ require 'rails/all'
 
 RECENT_GEM_VERSIONS_TO_SHOW = 20
 
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

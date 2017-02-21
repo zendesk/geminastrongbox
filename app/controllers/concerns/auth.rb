@@ -2,7 +2,7 @@ module Auth
   extend ActiveSupport::Concern
 
   included do
-    before_filter :authenticate!
+    before_action :authenticate!
     helper_method :current_user
   end
 
@@ -18,7 +18,7 @@ module Auth
   end
 
   def require_admin!
-    render(:nothing => true, :status => :forbidden) unless current_user.is_admin?
+    head :forbidden unless current_user.is_admin?
   end
 
   def logout!(msg = "You have been logged out.")

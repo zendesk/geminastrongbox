@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authenticate!, :verify_authenticity_token
+  skip_before_action :authenticate!, :verify_authenticity_token
 
   def new
   end
@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
     user = User.update_or_create_by_auth(auth_hash)
     session[:user_id] = user.id
-    redirect_to(env['omniauth.origin'] || '/')
+    redirect_to(request.env['omniauth.origin'] || '/')
   end
 
   def destroy

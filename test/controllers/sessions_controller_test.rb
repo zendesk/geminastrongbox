@@ -10,7 +10,7 @@ class SessionsControllerTest < ActionController::TestCase
             :info => { :email => 'test@example.org' }
           )
 
-          post :create, :provider => 'google'
+          post :create, params: {:provider => 'google'}
 
           assert_access_denied
         end
@@ -24,7 +24,7 @@ class SessionsControllerTest < ActionController::TestCase
             :info => { :email => 'test@example.org' }
           )
 
-          post :create, :provider => 'google'
+          post :create, params: {:provider => 'google'}
           assert_not_nil session[:user_id]
           assert_redirected_to '/'
         end
@@ -36,7 +36,7 @@ class SessionsControllerTest < ActionController::TestCase
             :info => { :email => 'test@example.org' }
           )
 
-          post :create, :provider => 'google'
+          post :create, params: {:provider => 'google'}
           assert_not_nil session[:user_id]
           assert_redirected_to '/'
         end

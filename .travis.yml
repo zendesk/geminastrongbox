@@ -1,5 +1,6 @@
 sudo: false
 cache: bundler
 bundler_args: --no-deployment
+script: bundle exec rake db:create db:migrate default
 branches:
   only: master

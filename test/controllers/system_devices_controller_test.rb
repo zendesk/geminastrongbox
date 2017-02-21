@@ -71,20 +71,20 @@ class SystemDevicesControllerTest < ActionController::TestCase
 
     when_not_logged_in do
       it 'denies access' do
-        post :create, params
+        post :create, params: params
         assert_access_denied
       end
     end
 
     when_logged_in_as(:non_admin) do
       it 'forbids access' do
-        post :create, params
+        post :create, params: params
         assert_response :forbidden
       end
     end
 
     when_logged_in_as(:admin) do
-      before { post :create, params }
+      before { post :create, params: params }
 
       describe 'when the device can not be saved' do
         let(:params) do
@@ -117,14 +117,14 @@ class SystemDevicesControllerTest < ActionController::TestCase
   describe 'destroy' do
     when_not_logged_in do
       it 'denies access' do
-        delete :destroy, :id => 1
+        delete :destroy, params: {:id => 1}
         assert_access_denied
       end
     end
 
     when_logged_in_as(:non_admin) do
       it 'forbids access' do
-        delete :destroy, :id => 1
+        delete :destroy, params: {:id => 1}
         assert_response :forbidden
       end
     end
@@ -133,7 +133,7 @@ class SystemDevicesControllerTest < ActionController::TestCase
       let(:device) { system_user.devices.last }
 
       it 'destroys the device' do
-        delete :destroy, :id => device.id
+        delete :destroy, params: {:id => device.id}
         Device.where(:id => device.id).must_be :empty?
       end
     end
