@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get  '/auth/:provider/callback', to: 'sessions#create'
   post '/auth/:provider/callback', to: 'sessions#create'
+  get '/tokens', to: "tokens#show"
 
   get '/gems/:gemname/versions/:version', to: 'versions#show', as: :gem_version, version: /.*/
 
