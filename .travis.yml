@@ -8,3 +8,5 @@ env:
   matrix:
     - TASK='db:create db:migrate default'
     - TASK=brakeman
+    - TASK=bundle_audit
+

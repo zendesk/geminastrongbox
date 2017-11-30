@@ -30,6 +30,7 @@ gem 'airbrake'
 gem 'airbrake-user_informer'
 gem 'dotenv'
 gem 'brakeman'
+gem 'bundle-audit'
 
 group :sqlite do
   gem "sqlite3"
